@@ -31,5 +31,7 @@ struct WyrazenieZesp {
 
 void Wyswietl(WyrazenieZesp  WyrZ);
 LZespolona Oblicz(WyrazenieZesp  WyrZ);
+void Wczytaj(WyrazenieZesp &WyrZ);
+ostream &operator <<(ostream &wyj, const WyrazenieZesp &WyrZ );
 
 #endif
