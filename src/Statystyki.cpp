@@ -12,3 +12,9 @@ void wypisz(Statystyki stat)
     cout<<"wynik procentowy "<< stat.poprawne * 100.0 / stat.wszystke;
 
 }
+
+void Oblicz(Statystyki &stat)
+{
+stat.pr_dobrze=stat.poprawne*100.0/stat.wszystke;
+stat.pr_zle=(stat.wszystke-stat.poprawne)*100.0/stat.wszystke;
+}

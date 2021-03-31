@@ -56,7 +56,7 @@ LZespolona  operator / (LZespolona  Skl1,  double  Skl2){
   LZespolona  Wynik={0,0};
 if(Skl2==0)
 {
-return Wynik;
+throw "dzielnie przez zero";
 }
   Wynik.re = Skl1.re / Skl2;
   Wynik.im = Skl1.im / Skl2;
