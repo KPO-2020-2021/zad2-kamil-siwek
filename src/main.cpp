@@ -47,7 +47,7 @@ Statystyki stat={0,0};
       cin.ignore(1024,'\n');
 
     }
-    obliczenie=Oblicz(WyrZ_PytanieTestowe);
+    obliczenie=WyrZ_PytanieTestowe.Oblicz();
     if(obliczenie==wynik)
     {
       cout<<"dobrze"<<endl;

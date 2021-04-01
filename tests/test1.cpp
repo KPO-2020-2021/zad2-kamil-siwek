@@ -199,7 +199,7 @@ TEST_CASE("test LZespolona modul"){
 
     
     
-    CHECK( Modul2(x) == s);
+    CHECK( x.Modul2() == s);
 }
 
 TEST_CASE("test LZespolona sprzezenie"){
@@ -214,5 +214,5 @@ TEST_CASE("test LZespolona sprzezenie"){
     
     
     
-    CHECK(Sprzezenie(x) == y);
+    CHECK(x.Sprzezenie() == y);
 }

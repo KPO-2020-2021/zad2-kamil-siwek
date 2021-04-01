@@ -12,15 +12,15 @@
  *    True dla równych liczb zespolonych.
  */
 
-bool  operator == (LZespolona  Skl1,  LZespolona  Skl2){
+ const bool   LZespolona::operator == (   LZespolona  Skl2)const{
  
-    if (abs(Skl1.re - Skl2.re) <= MIN_DIFF && abs(Skl1.im - Skl2.im) <= MIN_DIFF)
+    if (abs(  re - Skl2.re) <= MIN_DIFF && abs(  im - Skl2.im) <= MIN_DIFF)
     return true;
   else
     return false;
   //alternatywnie, dla MIN_DIFF i wyników od użytkownika
   /*
-  if ((Skl1.re == Skl2.re) && (Skl1.im == Skl2.im))
+  if ((  re == Skl2.re) && (  im == Skl2.im))
     return true;
   else
     return false; 
@@ -35,11 +35,11 @@ bool  operator == (LZespolona  Skl1,  LZespolona  Skl2){
  * Zwraca:
  *    Sume dwoch skladnikow przekazanych jako parametry.
  */
-LZespolona  operator + (LZespolona  Skl1,  LZespolona  Skl2){
+LZespolona  LZespolona::operator + (   LZespolona  Skl2){
   LZespolona  Wynik;
 
-  Wynik.re = Skl1.re + Skl2.re;
-  Wynik.im = Skl1.im + Skl2.im;
+  Wynik.re =   re + Skl2.re;
+  Wynik.im =   im + Skl2.im;
   return Wynik;
 }
 
@@ -52,31 +52,31 @@ LZespolona  operator + (LZespolona  Skl1,  LZespolona  Skl2){
  * Zwraca:
  *    Wynik dzielenia dwoch skladnikow przekazanych jako parametry.
  */
-LZespolona  operator / (LZespolona  Skl1,  double  Skl2){
+LZespolona  LZespolona::operator / (   double  Skl2){
   LZespolona  Wynik={0,0};
 if(Skl2==0)
 {
 throw "dzielnie przez zero";
 }
-  Wynik.re = Skl1.re / Skl2;
-  Wynik.im = Skl1.im / Skl2;
+  Wynik.re =   re / Skl2;
+  Wynik.im =   im / Skl2;
   return Wynik;
 }
 
-LZespolona  operator - (LZespolona  Skl1,  LZespolona  Skl2)
+LZespolona  LZespolona::operator - (   LZespolona  Skl2)
 {
   LZespolona  Wynik;
 
-  Wynik.re = Skl1.re - Skl2.re;
-  Wynik.im = Skl1.im - Skl2.im;
+  Wynik.re =   re - Skl2.re;
+  Wynik.im =   im - Skl2.im;
   return Wynik;
 }
-LZespolona  operator * (LZespolona  Skl1,  LZespolona  Skl2)
+LZespolona  LZespolona::operator * (   LZespolona  Skl2)
 {
 LZespolona  Wynik;
 
-  Wynik.re = Skl1.re * Skl2.re-Skl1.im * Skl2.im;
-  Wynik.im = Skl1.re * Skl2.im+Skl1.im * Skl2.re;
+  Wynik.re =   re * Skl2.re-  im * Skl2.im;
+  Wynik.im =   re * Skl2.im+  im * Skl2.re;
   return Wynik;
 }
 /*!
@@ -87,9 +87,9 @@ LZespolona  Wynik;
  * Zwraca:
  *    dzielenie dwoch skladnikow przekazanych jako parametry.
  */
-LZespolona  operator / (LZespolona  Skl1,  LZespolona  Skl2)
+LZespolona  LZespolona::operator / (   LZespolona  Skl2)
 {
-return Skl1*Sprzezenie(Skl2)/Modul2(Skl2);
+return *this*Skl2.Sprzezenie()/Skl2.Modul2();
 }
 
 /*!
@@ -99,12 +99,12 @@ return Skl1*Sprzezenie(Skl2)/Modul2(Skl2);
  * Zwraca:
  *    liczbe zespolona po zmianie znaku przy czeci urojonej
  */
-LZespolona Sprzezenie(LZespolona Skl)
+LZespolona LZespolona::Sprzezenie()
 {
  LZespolona  Wynik;
 
-  Wynik.re = Skl.re;
-  Wynik.im = -Skl.im;
+  Wynik.re = re;
+  Wynik.im = -im;
   return Wynik;
 }
 /*!
@@ -114,20 +114,20 @@ LZespolona Sprzezenie(LZespolona Skl)
  * Zwraca:
  *    zwraca warosc rzeczwista bedaca kwadratem modolu
  */
-double Modul2(LZespolona Skl)
+double LZespolona::Modul2()
 {
-return Skl.re * Skl.re+Skl.im * Skl.im;
+return re *re+im * im;
 }
 
-void Wyswietl(LZespolona Skl)
+void LZespolona::Wyswietl()
 {
-  cout<<"("<<Skl.re<<showpos<<Skl.im<<noshowpos<<"i)";
+  cout<<"("<<re<<showpos<<im<<noshowpos<<"i)";
 }
 
-void Wczytaj(LZespolona &Skl)
+void LZespolona::Wczytaj()
 {
   char znak;
-  cin>>znak>>Skl.re>>Skl.im>>znak>>znak;
+  cin>>znak>>re>>im>>znak>>znak;
 }
 
 ostream &operator <<(ostream &wyj, const LZespolona &Skl )
@@ -156,4 +156,33 @@ istream &operator >>(istream &wej,  LZespolona &Skl )
       wej.setstate(ios::failbit);
   }
   return wej;
+}
+
+double LZespolona::arg()
+  {
+      double wynik;
+      if(re>0)
+      {
+          wynik=atan2(im,re) * 180 / M_PI;
+      }
+      else if (re<0)
+      {
+          wynik=atan2(im,re) + M_PI * 180 / M_PI;
+      }
+      else
+      {
+          throw " argument a jest zero wyjatek";
+      }
+      return wynik;
+
+  }
+LZespolona LZespolona::operator +=(LZespolona Lz1)
+{
+    *this=*this+Lz1;
+    return *this;
+}
+LZespolona LZespolona::operator /=(LZespolona Lz1)
+{
+    *this=*this/Lz1;
+    return *this;
 }

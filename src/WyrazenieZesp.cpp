@@ -6,10 +6,10 @@
  * w pliku naglowkowym.
  */
 
-void Wyswietl(WyrazenieZesp  WyrZ)
+void WyrazenieZesp::Wyswietl()
 {
-    Wyswietl(WyrZ.Arg1);
-    switch (WyrZ.Op)
+    Arg1.Wyswietl();
+    switch (Op)
     {
     case Op_Dodaj:
         cout<<"+";
@@ -29,27 +29,27 @@ void Wyswietl(WyrazenieZesp  WyrZ)
     default:
         break;
     }
-    Wyswietl(WyrZ.Arg2);
+    Arg2.Wyswietl();
 }
 
-LZespolona Oblicz(WyrazenieZesp  WyrZ)
+LZespolona WyrazenieZesp::Oblicz()
 {
     LZespolona wynik;
-    switch (WyrZ.Op)
+    switch (Op)
     {
     case Op_Dodaj:
-    wynik=WyrZ.Arg1+WyrZ.Arg2;
+    wynik=  Arg1+  Arg2;
         break;
         case Op_Mnoz:
-         wynik=WyrZ.Arg1*WyrZ.Arg2;
+         wynik=  Arg1*  Arg2;
         break;
     
         case Op_Odejmij:
-        wynik=WyrZ.Arg1-WyrZ.Arg2;
+        wynik=  Arg1-  Arg2;
         break;
     
         case Op_Dziel:
-         wynik=WyrZ.Arg1/WyrZ.Arg2;
+         wynik=  Arg1/  Arg2;
         break;
     
   
@@ -57,22 +57,51 @@ LZespolona Oblicz(WyrazenieZesp  WyrZ)
     return wynik;
 }
 
-void Wczytaj(WyrazenieZesp &WyrZ)
+void WyrazenieZesp::Wczytaj()
 {
     char znak;
-        Wczytaj(WyrZ.Arg1);
+      Arg1.Wczytaj();
         cin>>znak;
     switch (znak)
     {
     case '+':
-        WyrZ.Op=Op_Dodaj;
+       Op=Op_Dodaj;
         break;
    case '-':
-        WyrZ.Op=Op_Odejmij;
+       Op=Op_Odejmij;
         break;
     
    case '*':
-        WyrZ.Op=Op_Mnoz;
+       Op=Op_Mnoz;
+        break;
+    
+    case '/':
+        Op=Op_Dziel;
+        break;
+    
+    default:
+        break;
+    }
+     Arg2.Wczytaj();
+}
+
+
+istream &operator >>(istream &wej,  WyrazenieZesp &WyrZ )
+{
+    char znak;
+     wej>>WyrZ.Arg1;
+        wej>>znak;
+    switch (znak)
+    {
+    case '+':
+       WyrZ.Op=Op_Dodaj;
+        break;
+   case '-':
+       WyrZ.Op=Op_Odejmij;
+        break;
+    
+   case '*':
+       WyrZ.Op=Op_Mnoz;
         break;
     
     case '/':
@@ -80,9 +109,11 @@ void Wczytaj(WyrazenieZesp &WyrZ)
         break;
     
     default:
+    wej.setstate(ios::failbit);
         break;
     }
-    Wczytaj(WyrZ.Arg2);
+      wej>>WyrZ.Arg2;
+      return wej;
 }
 
 ostream &operator <<(ostream &wyj, const WyrazenieZesp &WyrZ )
